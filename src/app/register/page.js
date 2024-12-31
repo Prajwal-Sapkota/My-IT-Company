@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const Register = () => {
   const [step, setStep] = useState(1); 
   const [generatedOtp, setGeneratedOtp] = useState("");
-  const { register, handleSubmit, watch, setError, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, setError, formState: { errors }, reset } = useForm();
   const { otp } = watch(); // Watch OTP input value
   const router = useRouter(); // Next.js router for navigation
 
@@ -20,7 +20,10 @@ const Register = () => {
 
     // Temporarily store the user data
     localStorage.setItem("tempUser", JSON.stringify(data));
-    setStep(2); 
+    setStep(2); // Move to OTP verification step
+
+    // Reset the form state (important to clear previous data)
+    reset();
   };
 
   const handleVerifyOtp = () => {
@@ -30,7 +33,6 @@ const Register = () => {
       alert("Registration successful!");
       router.push("/login"); // Or "/dashboard"
     } else {
-      
       setError("otp", { message: "Invalid OTP. Please try again." });
     }
   };
@@ -121,7 +123,6 @@ const Register = () => {
             </button>
           </form>
         ) : (
-          
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -132,7 +133,7 @@ const Register = () => {
             <div>
               <input
                 type="text"
-                placeholder="Enter OTP"
+                placeholder="Enter OTP"  
                 {...register("otp", { required: "OTP is required" })}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />

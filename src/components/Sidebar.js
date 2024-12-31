@@ -8,7 +8,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
     <>
       {/* Sidebar: Shown only when isOpen is true on mobile */}
-      <div className={`lg:w-64 w-full bg-gray-800 text-white p-4 ${isOpen ? "block" : "hidden"} lg:block`}>
+      <div className={`lg:w-64 w-full bg-gray-800 text-white p-4 ${isOpen ? "block" : "hidden"} lg:block sticky top-0 h-screen`}>
         <h2 className="text-xl mb-4">IT Company</h2>
         <ul>
           <li><a href="#" onClick={() => router.push("/landing")} className="block py-2 hover:bg-gray-600">Home</a></li>
